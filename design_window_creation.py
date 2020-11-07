@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow_cr(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(368, 301)
+        MainWindow.resize(368, 293)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
@@ -37,11 +37,9 @@ class Ui_MainWindow_cr(object):
         self.pushButton_4 = QtWidgets.QPushButton(self.tab)
         self.pushButton_4.setObjectName("pushButton_4")
         self.gridLayout_3.addWidget(self.pushButton_4, 0, 3, 1, 1)
-        self.tableWidget = QtWidgets.QTableWidget(self.tab)
-        self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(0)
-        self.tableWidget.setRowCount(0)
-        self.gridLayout_3.addWidget(self.tableWidget, 1, 0, 1, 4)
+        self.textEdit = QtWidgets.QTextEdit(self.tab)
+        self.textEdit.setObjectName("textEdit")
+        self.gridLayout_3.addWidget(self.textEdit, 1, 0, 1, 4)
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(450, 380)
+        MainWindow.resize(413, 299)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
@@ -24,11 +24,16 @@ class Ui_MainWindow(object):
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.tab)
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.crbt_notes = QtWidgets.QPushButton(self.tab)
-        self.crbt_notes.setGeometry(QtCore.QRect(10, 10, 21, 21))
         self.crbt_notes.setMinimumSize(QtCore.QSize(21, 0))
         self.crbt_notes.setStyleSheet("background-color: rgb(0, 255, 127);")
         self.crbt_notes.setObjectName("crbt_notes")
+        self.horizontalLayout.addWidget(self.crbt_notes)
+        self.tableView = QtWidgets.QTableView(self.tab)
+        self.tableView.setObjectName("tableView")
+        self.horizontalLayout.addWidget(self.tableView)
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -49,7 +54,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.tabWidget, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 450, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 413, 22))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -57,7 +62,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

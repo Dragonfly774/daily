@@ -3,6 +3,12 @@ https://lyceum.yandex.ru
 https://www.sqlitetutorial.net/
 https://pythonworld.ru/gui/pyqt5-widgets2.html
 https://doc.qt.io/qt-5/sql-programming.html
-для гита git remote add origin https://github.com/Dragonfly774/daily.git
+для гита
+https://www.youtube.com/watch?v=HHhaoUAe1K8&t=506s
+git remote add origin https://github.com/Dragonfly774/daily.git
 git branch -M main
 git push -u origin main
+две книги
+https://habr.com/ru/post/194738/
+https://tproger.ru/translations/pyqt-apps/
+https://doc.qt.io/qt-5/sql-programming.html

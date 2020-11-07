@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 import sys
+import sqlite3
 
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 import creation_window
 from test_maket import Ui_MainWindow
+from design_window_creation import Ui_MainWindow_cr
 
 
 class MyWidget(QMainWindow, Ui_MainWindow):
