@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>395</width>
+    <width>461</width>
     <height>353</height>
    </rect>
   </property>
@@ -15,10 +15,10 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
+    <item row="0" column="1">
      <widget class="QTabWidget" name="tabWidget">
       <property name="styleSheet">
-       <string notr="true">background-color: rgb(216, 216, 216);</string>
+       <string notr="true">background-color: rgb(216, 216, 255);</string>
       </property>
       <property name="currentIndex">
        <number>0</number>
@@ -37,7 +37,18 @@
            </size>
           </property>
           <property name="styleSheet">
-           <string notr="true">background-color: rgb(0, 255, 127);</string>
+           <string notr="true">  display: inline-block;
+  color: white;
+  text-decoration: none;
+  padding: .5em 2em;
+  outline: none;
+  border-width: 2px 0;
+  border-style: solid none;
+  border-color: #FDBE33 #000 #D77206;
+  border-radius: 6px;
+  background: linear-gradient(#F3AE0F, #E38916) #E38916;
+  transition: 0.2s;
+</string>
           </property>
           <property name="text">
            <string>+</string>
@@ -46,13 +57,67 @@
         </item>
         <item row="0" column="1">
          <widget class="QPushButton" name="refresh">
+          <property name="styleSheet">
+           <string notr="true">
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  padding: .5em 2em;
+  outline: none;
+  border-width: 2px 0;
+  border-style: solid none;
+  border-color: #FDBE33 #000 #D77206;
+  border-radius: 6px;
+  background: linear-gradient(#F3AE0F, #E38916) #E38916;
+  transition: 0.2s;</string>
+          </property>
           <property name="text">
            <string>обновить</string>
           </property>
          </widget>
         </item>
-        <item row="1" column="0" colspan="2">
-         <widget class="QTableView" name="tableView"/>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="deletebt_notes">
+          <property name="styleSheet">
+           <string notr="true">display: inline-block;
+  color: white;
+  text-decoration: none;
+  padding: .5em 2em;
+  outline: none;
+  border-width: 2px 0;
+  border-style: solid none;
+  border-color: #FDBE33 #000 #D77206;
+  border-radius: 6px;
+  background: linear-gradient(#F3AE0F, #E38916) #E38916;
+  transition: 0.2s;</string>
+          </property>
+          <property name="text">
+           <string>удалить</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QPushButton" name="editi">
+          <property name="styleSheet">
+           <string notr="true">display: inline-block;
+  color: white;
+  text-decoration: none;
+  padding: .5em 2em;
+  outline: none;
+  border-width: 2px 0;
+  border-style: solid none;
+  border-color: #FDBE33 #000 #D77206;
+  border-radius: 6px;
+  background: linear-gradient(#F3AE0F, #E38916) #E38916;
+  transition: 0.2s;</string>
+          </property>
+          <property name="text">
+           <string>редактирование</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="4">
+         <widget class="QListWidget" name="listWidget"/>
         </item>
        </layout>
       </widget>
@@ -65,12 +130,23 @@
          <rect>
           <x>10</x>
           <y>10</y>
-          <width>21</width>
-          <height>21</height>
+          <width>111</width>
+          <height>31</height>
          </rect>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(85, 255, 0);</string>
+         <string notr="true">
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+  padding: .5em 2em;
+  outline: none;
+  border-width: 2px 0;
+  border-style: solid none;
+  border-color: #FDBE33 #000 #D77206;
+  border-radius: 6px;
+  background: linear-gradient(#F3AE0F, #E38916) #E38916;
+  transition: 0.2s;</string>
         </property>
         <property name="text">
          <string>+</string>
@@ -116,7 +192,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>395</width>
+     <width>461</width>
      <height>22</height>
     </rect>
    </property>

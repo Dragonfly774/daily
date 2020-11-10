@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import sqlite3
 import sys
 
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
@@ -13,21 +14,33 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         super().__init__()
         self.setupUi(self)
         self.crbt_notes.clicked.connect(self.open_second_form)
-        self.refresh.clicked.connect(self.showing_tableview)
+        self.refresh.clicked.connect(self.filling_data_listwidget)
+        # self..clicked.connect(self.)
+        self.deletebt_notes.clicked.connect(self.delete_data_listwidget)
+
 
     @staticmethod
     def open_second_form():
         creation_window.main()
 
-    def showing_tableview(self):
-        db = QSqlDatabase.addDatabase('QSQLITE')
-        db.setDatabaseName('project_db.db')
-        db.open()
-        view = self.tableView
-        model = QSqlTableModel(self, db)
-        model.setTable('Data')
-        model.select()
-        view.setModel(model)
+    def filling_data_listwidget(self):
+        con = sqlite3.connect('project_db.db')
+        cur = con.cursor()
+        db = cur.execute(f"SELECT data FROM Data").fetchall()
+        for data in db:
+            self.listWidget.addItems(data)
+        # con.commit()
+        # con.close()
+
+    def delete_data_listwidget(self):
+        id = self.listWidget.currentRow()
+        print(self.listWidget.currentItem().text())
+        con = sqlite3.connect('project_db.db')
+        cur = con.cursor()
+        db = cur.execute(f"DELETE FROM Data WHERE data = {id - 1}").fetchall()
+        con.commit()
+        con.close()
+
 
 
 if __name__ == '__main__':
