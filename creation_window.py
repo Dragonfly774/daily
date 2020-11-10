@@ -5,7 +5,7 @@ import datetime as dt
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from design_window_creation import Ui_MainWindow_cr
 
-category = {1: 'встреча', 2: 'цели', 3: 'сегодня', 4: 'важное', 5: 'нет'}
+category = {1: 'нет', 2: 'цели', 3: 'сегодня', 4: 'важное', 5: 'встреча'}
 
 
 class MyWidget(QMainWindow, Ui_MainWindow_cr):
@@ -20,27 +20,30 @@ class MyWidget(QMainWindow, Ui_MainWindow_cr):
 
     def saving_notes_to_database(self):
         info = self.textEdit.toPlainText()
-        value_comboBox = self.comboBox_choice.currentText()
+        value_combobox = 1
+        value_combobox = self.comboBox_choice.currentText()
         for i, j in category.items():
-            if value_comboBox == category.get(i):
-                value_comboBox = i
+            if value_combobox == category.get(i):
+                value_combobox = i
+
         if info:
             con = sqlite3.connect('project_db.db')
             cur = con.cursor()
             datetime = dt.datetime.now()
+
             cur.execute(f"INSERT INTO Data(section, data, datetime, category) VALUES(1, ?, ?, ?)",
-                        (info, datetime, value_comboBox)).fetchall()
+                        (info, datetime, value_combobox)).fetchall()
             con.commit()
             con.close()
 
 
-# def main():
-#     global ex_2
-#     ex_2 = MyWidget()
-#     ex_2.show()
+def main():
+    global ex_2
+    ex_2 = MyWidget()
+    ex_2.show()
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = MyWidget()
-    ex.show()
-    sys.exit(app.exec_())
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#     ex = MyWidget()
+#     ex.show()
+#     sys.exit(app.exec_())
