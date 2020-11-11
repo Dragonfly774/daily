@@ -5,7 +5,7 @@ import sys
 from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
 
 import creation_window
-from PyQt5.QtWidgets import QApplication, QMainWindow, QTableView
+from PyQt5.QtWidgets import QApplication, QMainWindow
 from test_maket import Ui_MainWindow
 
 
@@ -18,29 +18,32 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         # self..clicked.connect(self.)
         self.deletebt_notes.clicked.connect(self.delete_data_listwidget)
 
-
     @staticmethod
     def open_second_form():
         creation_window.main()
 
     def filling_data_listwidget(self):
+        """сделать автоматическое удаление одинаковых записей"""
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
         db = cur.execute(f"SELECT data FROM Data").fetchall()
+        self.listWidget.clear()
         for data in db:
             self.listWidget.addItems(data)
         # con.commit()
         # con.close()
 
     def delete_data_listwidget(self):
+        # надо узнать id элемента из бд
         id = self.listWidget.currentRow()
+        print(id)
         print(self.listWidget.currentItem().text())
+
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
-        db = cur.execute(f"DELETE FROM Data WHERE data = {id - 1}").fetchall()
+        cur.execute("DELETE FROM Data WHERE id = ?", (7,))
         con.commit()
         con.close()
-
 
 
 if __name__ == '__main__':
@@ -48,3 +51,14 @@ if __name__ == '__main__':
     ex = MyWidget()
     ex.show()
     sys.exit(app.exec_())
+
+# def except_hook(cls, exception, traceback):
+#     sys.__excepthook__(cls, exception, traceback)
+#
+#
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#     form = PayForm()
+#     form.show()
+#     sys.excepthook = except_hook
+#     sys.exit(app.exec())
