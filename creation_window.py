@@ -4,6 +4,7 @@ import sqlite3
 import datetime as dt
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from design_window_creation import Ui_MainWindow_cr
+from db_only import deleting_identical_notes
 
 category = {1: 'нет', 2: 'цели', 3: 'сегодня', 4: 'важное', 5: 'встреча'}
 
@@ -20,7 +21,6 @@ class MyWidget(QMainWindow, Ui_MainWindow_cr):
 
     def saving_notes_to_database(self):
         info = self.textEdit.toPlainText()
-        value_combobox = 1
         value_combobox = self.comboBox_choice.currentText()
         for i, j in category.items():
             if value_combobox == category.get(i):
@@ -37,10 +37,12 @@ class MyWidget(QMainWindow, Ui_MainWindow_cr):
             con.close()
 
 
+
 def main():
     global ex_2
     ex_2 = MyWidget()
     ex_2.show()
+    # deleting_identical_notes()
 
 # if __name__ == '__main__':
 #     app = QApplication(sys.argv)
