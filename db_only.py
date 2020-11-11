@@ -2,6 +2,7 @@ import sqlite3
 
 
 def deleting_identical_notes():
+    """удаление повторых сохранненых заметок"""
     con = sqlite3.connect('project_db.db')
     cur = con.cursor()
     r = cur.execute("SELECT section, data, category FROM Data")
@@ -14,7 +15,6 @@ def deleting_identical_notes():
             del_count.append(1)
         else:
             del_count.append(0)
-    print(del_count)
     con_2 = sqlite3.connect('project_db.db')
     cur_2 = con.cursor()
     r_2 = cur.execute("SELECT id, datetime FROM Data")

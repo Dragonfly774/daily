@@ -20,6 +20,7 @@ class MyWidget(QMainWindow, Ui_MainWindow_cr):
         self.saving_notes_to_database()
 
     def saving_notes_to_database(self):
+        """сохранение заметки в базу данных"""
         info = self.textEdit.toPlainText()
         value_combobox = self.comboBox_choice.currentText()
         for i, j in category.items():

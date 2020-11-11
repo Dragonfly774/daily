@@ -2,8 +2,6 @@
 import sqlite3
 import sys
 
-from PyQt5.QtSql import QSqlDatabase, QSqlTableModel
-
 import creation_window
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from test_maket import Ui_MainWindow
@@ -22,13 +20,16 @@ class MyWidget(QMainWindow, Ui_MainWindow):
 
     @staticmethod
     def open_second_form():
+        """вызов функции из 'creation_window.py', которая создает заметки"""
         creation_window.main()
 
-    def deleting_identical_notes_call(self):
+    @staticmethod
+    def deleting_identical_notes_call():
+        """вызов функции из 'db_only.py', которая удалет одиннаковые замекти"""
         deleting_identical_notes()
 
     def filling_data_listwidget(self):
-        """сделать автоматическое удаление одинаковых записей"""
+        """заполнение из бд listWidget"""
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
         db = cur.execute(f"SELECT data FROM Data").fetchall()
@@ -39,16 +40,24 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         # con.close()
 
     def delete_data_listwidget(self):
-        # надо узнать id элемента из бд
-        id = self.listWidget.currentRow()
-        print(id)
-        print(self.listWidget.currentItem().text())
-
+        """удаление выбранной заметки"""
+        # id = self.listWidget.currentRow()
+        # print(id)
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
-        cur.execute("DELETE FROM Data WHERE id = ?", (id,))
-        con.commit()
-        con.close()
+        result = cur.execute("SELECT data FROM Data")
+        data = []
+        for i in result:
+            data.append(i)
+        data_text_listwidget = self.listWidget.currentItem().text()
+        data = list(map(lambda x: x[0], data))
+        for i in range(len(data)):
+            if data[i] == data_text_listwidget:
+                con1 = sqlite3.connect('project_db.db')
+                cur1 = con1.cursor()
+                cur1.execute("DELETE FROM Data WHERE data = ?", (data_text_listwidget,))
+                con1.commit()
+                con1.close()
 
 
 def except_hook(cls, exception, traceback):
