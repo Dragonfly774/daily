@@ -10,6 +10,7 @@ from test_maket import Ui_MainWindow
 from db_only import deleting_identical_notes
 
 
+
 class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -20,7 +21,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.refresh.clicked.connect(self.deleting_identical_notes_call)
         self.editi.clicked.connect(self.editing_a_note)
         self.data_list = ''
-        self.data_list = self.listWidget.currentItem().text()
+        # self.data_list = self.listWidget.currentItem().text()
 
 
     @staticmethod
@@ -61,8 +62,8 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 con1.close()
 
     def editing_a_note(self):
-        # self.data_list = self.data_list(self.listWidget.currentItem().text())
-        editing_window_note.main()
+        self.data_list = self.listWidget.currentItem().text()
+        editing_window_note.main(self.data_list)
 
 
 def except_hook(cls, exception, traceback):
