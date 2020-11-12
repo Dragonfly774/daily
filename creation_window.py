@@ -2,11 +2,14 @@
 import sys
 import sqlite3
 import datetime as dt
+import dayli
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from design_window_creation import Ui_MainWindow_cr
-from db_only import deleting_identical_notes
+
 
 category = {1: 'нет', 2: 'цели', 3: 'сегодня', 4: 'важное', 5: 'встреча'}
+# global data
+# data = None
 
 
 class MyWidget(QMainWindow, Ui_MainWindow_cr):
@@ -15,6 +18,7 @@ class MyWidget(QMainWindow, Ui_MainWindow_cr):
         self.setupUi(self)
         self.comboBox_choice.addItems([category[1], category[2], category[3], category[4], category[5]])
         self.pushButton_2.clicked.connect(self.save_psh)
+        self.pushButton_4.clicked.connect(self.run)
 
     def save_psh(self):
         self.saving_notes_to_database()
@@ -37,7 +41,30 @@ class MyWidget(QMainWindow, Ui_MainWindow_cr):
             con.commit()
             con.close()
 
+    def run(self) -> object:
+        data = self.textEdit.toPlainText()
+        print(str(data))
+        con = sqlite3.connect('project_db.db')
+        cur = con.cursor()
+        result = cur.execute("SELECT data FROM Data")
+        data_edit = []
+        data_edit = [data_edit.append(i) for i in result]
+        data_del = dayli.MyWidget(self.d)
+        print(data_del)
+        for i in range(len(data_edit)):
+            if data_edit[i] == data:
+                con1 = sqlite3.connect('project_db.db')
+                cur1 = con1.cursor()
+                cur1.execute(f"UPDATE Data SET data = ? WHERE data = ?", (data, data_del))
+                con1.commit()
+                con1.close()
 
+
+def main_edit():
+    MyWidget.run()
+    global ex_2
+    ex_2 = MyWidget()
+    ex_2.show()
 
 def main():
     global ex_2

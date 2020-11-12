@@ -7,6 +7,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow
 from test_maket import Ui_MainWindow
 from db_only import deleting_identical_notes
 
+global d
+
 
 class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -17,7 +19,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         # self..clicked.connect(self.)
         self.deletebt_notes.clicked.connect(self.delete_data_listwidget)
         self.refresh.clicked.connect(self.deleting_identical_notes_call)
-
+        self.editi.clicked.connect(self.editing_a_note)
     @staticmethod
     def open_second_form():
         """вызов функции из 'creation_window.py', которая создает заметки"""
@@ -25,39 +27,59 @@ class MyWidget(QMainWindow, Ui_MainWindow):
 
     @staticmethod
     def deleting_identical_notes_call():
-        """вызов функции из 'db_only.py', которая удалет одиннаковые замекти"""
+        """вызов функции из 'db_only.py', которая удалит одиннаковые замекти"""
         deleting_identical_notes()
 
     def filling_data_listwidget(self):
-        """заполнение из бд listWidget"""
+        """заполнение из бд в listWidget"""
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
         db = cur.execute(f"SELECT data FROM Data").fetchall()
         self.listWidget.clear()
         for data in db:
             self.listWidget.addItems(data)
-        # con.commit()
-        # con.close()
 
     def delete_data_listwidget(self):
         """удаление выбранной заметки"""
-        # id = self.listWidget.currentRow()
-        # print(id)
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
         result = cur.execute("SELECT data FROM Data")
         data = []
         for i in result:
             data.append(i)
-        data_text_listwidget = self.listWidget.currentItem().text()
+        data_text_listwidget_del = self.listWidget.currentItem().text()
         data = list(map(lambda x: x[0], data))
         for i in range(len(data)):
-            if data[i] == data_text_listwidget:
+            if data[i] == data_text_listwidget_del:
                 con1 = sqlite3.connect('project_db.db')
                 cur1 = con1.cursor()
-                cur1.execute("DELETE FROM Data WHERE data = ?", (data_text_listwidget,))
+                cur1.execute("DELETE FROM Data WHERE data = ?", (data_text_listwidget_del,))
                 con1.commit()
                 con1.close()
+
+    def editing_a_note(self):
+        # d = []
+        # d = self.listWidget.currentItem().text()
+
+        creation_window.main()
+        creation_window.main_edit()
+        # data_text_listwidget = self.listWidget.currentItem().text()
+        # con = sqlite3.connect('project_db.db')
+        # cur = con.cursor()
+        # result = cur.execute("SELECT data FROM Data")
+        # data = []
+        # data = [data.append(i) for i in result]
+        # creation_window.main()
+        # print(str(creation_window.MyWidget.run))
+        # for i in range(len(data)):
+        #     if data[i] == data_text_listwidget:
+        #
+        #         con1 = sqlite3.connect('project_db.db')
+        #         cur1 = con1.cursor()
+        #         cur1.execute(f"UPDATE Data SET data = ? WHERE data = ?",
+        #                      (str(creation_window.MyWidget.run), str(data_text_listwidget)))
+        #         con1.commit()
+        #         con1.close()
 
 
 def except_hook(cls, exception, traceback):
