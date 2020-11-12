@@ -21,7 +21,7 @@ class Edit(Ui_EditWindow_E, QMainWindow):
         result = cur.execute("SELECT data FROM Data")
         data_edit = []
         data_edit = [data_edit.append(i) for i in result]
-        data_del = #
+        data_del = dayli.MyWidget()
         print(data_del)
         for i in range(len(data_edit)):
             if data_edit[i] == data_del:
