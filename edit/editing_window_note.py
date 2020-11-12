@@ -1,10 +1,7 @@
 import sqlite3
-import sys
-# from dayli import MyWidget
-import dayli
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
-from edit_window import Ui_EditWindow_E
+from edit.edit_window import Ui_EditWindow_E
 
 
 class Edit(Ui_EditWindow_E, QMainWindow):
@@ -15,6 +12,9 @@ class Edit(Ui_EditWindow_E, QMainWindow):
         self.pushButton.clicked.connect(self.run)
 
     def run(self):
+        """
+        редактирование data в заметках
+        """
         data = self.textEdit.toPlainText()
         print(str(data))
         con = sqlite3.connect('project_db.db')

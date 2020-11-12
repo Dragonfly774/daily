@@ -2,13 +2,11 @@
 import sqlite3
 import sys
 
-import creation_window
-import editing_window_note
-# from edit_window import Ui_EditWindow_E  # из edit_window
+from creat_window import creation_window
+from edit import editing_window_note
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from test_maket import Ui_MainWindow
 from db_only import deleting_identical_notes
-
 
 
 class MyWidget(QMainWindow, Ui_MainWindow):
@@ -21,8 +19,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.refresh.clicked.connect(self.deleting_identical_notes_call)
         self.editi.clicked.connect(self.editing_a_note)
         self.data_list = ''
-        # self.data_list = self.listWidget.currentItem().text()
-
 
     @staticmethod
     def open_second_form():
@@ -62,6 +58,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 con1.close()
 
     def editing_a_note(self):
+        """вызов окна редактирования"""
         self.data_list = self.listWidget.currentItem().text()
         editing_window_note.main(self.data_list)
 

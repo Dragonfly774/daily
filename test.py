@@ -1,1 +1,0 @@
-d= [('popa',), ('popf',), ('pop',), ('ggdfda',), ('uhjk',)] #['popa', 'popf', 'pop', 'ggdfda', 'uhjk']
