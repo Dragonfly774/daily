@@ -5,22 +5,16 @@ import datetime as dt
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from design_window_creation import Ui_MainWindow
 
-category = {1: 'нет', 2: 'цели', 3: 'сегодня', 4: 'важное', 5: 'встреча', 6: 'своя'}
+category = {1: 'нет', 2: 'цели', 3: 'сегодня', 4: 'важное', 5: 'встреча'}
 
 
 class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.comboBox_choice.addItems([category[1], category[2], category[3], category[4], category[5], category[6]])
+        self.comboBox_choice.addItems([category[1], category[2], category[3], category[4], category[5]])
         self.pushButton_2.clicked.connect(self.save_psh)
         self.comboBox_choice.activated.connect(self.combo_append)
-
-    def combo_append(self):
-        value_combobox = self.comboBox_choice.currentText()
-        if value_combobox == category[6]:
-            print('iiiiiiiiiiiiiiii')
-
 
     def save_psh(self):
         self.saving_notes_to_database()

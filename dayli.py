@@ -30,13 +30,33 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         deleting_identical_notes()
 
     def filling_data_listwidget(self):
-        """заполнение из бд в listWidget"""
+        """заполнение из бд в listWidget
+        TODO:
+        сделать вывод категорий
+        """
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
-        db = cur.execute(f"SELECT data FROM Data").fetchall()
+        db = cur.execute(f"SELECT data, category FROM Data").fetchall()
+        # self.listWidget.clear()
+        # print(db)
+        # db = cur.execute(f"SELECT data FROM Data").fetchall()
+        # print(db)
         self.listWidget.clear()
         for data in db:
+            print(data)
             self.listWidget.addItems(data)
+        # db_data = []
+        # db_data_list = []
+        # for i in range(len(db)):
+        #     db_data.append(db[i][0])
+        # print(db_data)
+        # for k in db_data:
+        #     db_data_list.append(tuple(k))
+        # for j in db_data:
+        #     self.listWidget.addItems(tuple(j))
+
+
+
 
     def delete_data_listwidget(self):
         """удаление выбранной заметки"""
@@ -72,5 +92,3 @@ if __name__ == '__main__':
     ex.show()
     sys.excepthook = except_hook
     sys.exit(app.exec())
-
-
