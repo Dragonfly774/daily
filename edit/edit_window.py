@@ -11,44 +11,39 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_EditWindow_E(object):
+class Ui_EditWindow(object):
     def setupUi(self, EditWindow):
         EditWindow.setObjectName("EditWindow")
-        EditWindow.resize(278, 247)
+        EditWindow.resize(278, 251)
+        EditWindow.setStyleSheet("background-color: #40E0D0")
         self.centralwidget = QtWidgets.QWidget(EditWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
-        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox.setObjectName("comboBox")
-        self.gridLayout.addWidget(self.comboBox, 1, 1, 1, 1)
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 0, 1, 1, 1)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton.setStyleSheet("color: #ff9218;\n"
+"background-color: #ffe5b4;\n"
+"text-align: center;\n"
+"border-radius: 10px;\n"
+"border: none;\n"
+"box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);\n"
+"width: 130px;\n"
+"height: 30px;")
         self.pushButton.setObjectName("pushButton")
-        self.gridLayout.addWidget(self.pushButton, 0, 0, 2, 1)
+        self.gridLayout.addWidget(self.pushButton, 0, 0, 1, 1)
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit.setStyleSheet("background-color: #ffffff")
         self.textEdit.setObjectName("textEdit")
-        self.gridLayout.addWidget(self.textEdit, 2, 0, 1, 2)
+        self.gridLayout.addWidget(self.textEdit, 1, 0, 1, 2)
         EditWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(EditWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 278, 22))
-        self.menubar.setObjectName("menubar")
-        EditWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(EditWindow)
         self.statusbar.setObjectName("statusbar")
         EditWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(EditWindow)
         QtCore.QMetaObject.connectSlotsByName(EditWindow)
-        _translate = QtCore.QCoreApplication.translate
-        EditWindow.setWindowTitle(_translate("EditWindow", "Редактирование"))
-        self.label.setText(_translate("EditWindow", "категории"))
-        self.pushButton.setText(_translate("EditWindow", "сохранить"))
 
     def retranslateUi(self, EditWindow):
         _translate = QtCore.QCoreApplication.translate
         EditWindow.setWindowTitle(_translate("EditWindow", "Редактирование"))
-        self.label.setText(_translate("EditWindow", "категории"))
         self.pushButton.setText(_translate("EditWindow", "сохранить"))

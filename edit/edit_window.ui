@@ -7,45 +7,42 @@
     <x>0</x>
     <y>0</y>
     <width>278</width>
-    <height>247</height>
+    <height>251</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Редактирование</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #40E0D0</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="1">
-     <widget class="QComboBox" name="comboBox"/>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLabel" name="label">
-      <property name="text">
-       <string>категории</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="0" rowspan="2">
+    <item row="0" column="0">
      <widget class="QPushButton" name="pushButton">
+      <property name="styleSheet">
+       <string notr="true">color: #ff9218;
+background-color: #ffe5b4;
+text-align: center;
+border-radius: 10px;
+border: none;
+box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
+width: 130px;
+height: 30px;</string>
+      </property>
       <property name="text">
        <string>сохранить</string>
       </property>
      </widget>
     </item>
-    <item row="2" column="0" colspan="2">
-     <widget class="QTextEdit" name="textEdit"/>
+    <item row="1" column="0" colspan="2">
+     <widget class="QTextEdit" name="textEdit">
+      <property name="styleSheet">
+       <string notr="true">background-color: #ffffff</string>
+      </property>
+     </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>278</width>
-     <height>22</height>
-    </rect>
-   </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
