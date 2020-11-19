@@ -8,6 +8,9 @@ from main_window import Ui_MainWindow
 from db_only import deleting_identical_notes
 
 
+# from test_calendar import main
+
+
 class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
@@ -15,9 +18,14 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.crbt_notes.clicked.connect(self.open_second_form)
         self.refresh.clicked.connect(self.filling_data_listwidget)
         self.deletebt_notes.clicked.connect(self.delete_data_listwidget)
+        self.deletebt_notes.clicked.connect(self.deleting_identical_notes_call)
         self.refresh.clicked.connect(self.deleting_identical_notes_call)
-        self.editi.clicked.connect(self.editing_a_note)
+        self.deletebt_notes.clicked.connect(self.filling_data_listwidget)
+        self.refresh.clicked.connect(self.filling_data_listwidget)
         self.data_list = ''
+        self.dates_calendar = {}
+        self.pushButton.clicked.connect(self.find_date)
+        # self.listWidget.itemClicked.connect(self.editing_a_note)  # вызов окно редактирование и просмотра по нажатию
 
     @staticmethod
     def open_second_form():
@@ -29,22 +37,27 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         """вызов функции из 'db_only.py', которая удалит одиннаковые замекти"""
         deleting_identical_notes()
 
+    def editing_a_note(self):
+        """вызов окна редактирования"""
+        self.data_list = self.listWidget.currentItem().text()
+        editing_window_note.main(self.data_list)
+
+
     def filling_data_listwidget(self):
         """заполнение из бд в listWidget
-        TODO:
-        сделать вывод категорий
         """
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
-        db = cur.execute(f"SELECT data, category FROM Data").fetchall()
+        db = cur.execute(f"SELECT data FROM Data").fetchall()
         # self.listWidget.clear()
         # print(db)
-        # db = cur.execute(f"SELECT data FROM Data").fetchall()
+        # db = cur.execute(f"SELECT data, category FROM Data").fetchall()
         # print(db)
         self.listWidget.clear()
         for data in db:
-            print(data)
             self.listWidget.addItems(data)
+        self.listWidget.itemDoubleClicked.connect(self.editing_a_note)
+        self.filling_data_listwidget
         # db_data = []
         # db_data_list = []
         # for i in range(len(db)):
@@ -54,9 +67,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         #     db_data_list.append(tuple(k))
         # for j in db_data:
         #     self.listWidget.addItems(tuple(j))
-
-
-
 
     def delete_data_listwidget(self):
         """удаление выбранной заметки"""
@@ -76,10 +86,35 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 con1.commit()
                 con1.close()
 
-    def editing_a_note(self):
-        """вызов окна редактирования"""
-        self.data_list = self.listWidget.currentItem().text()
-        editing_window_note.main(self.data_list)
+
+    def find_date(self):
+        """календарь, создание заметки"""
+        # получаем дату
+        string_date = self.calendarWidget.selectedDate().getDate()
+        # добавляем ноль, елси месяц <= 9
+        if int(string_date[1]) <= 9:
+            string_date = (string_date[0], '0' + str(string_date[1]), string_date[-1])
+        # добавляем ноль, елси день <= 9
+        if int(string_date[2]) <= 9:
+            string_date = (string_date[0], str(string_date[1]), '0' + str(string_date[-1]))
+        line_edit = self.lineEdit.text()
+        # задаем словарю новое значения
+        self.dates_calendar[
+            f'{string_date[0]}-{string_date[1]}-{string_date[2]}-{self.timeEdit.time().toString()}'] = line_edit
+        self.textBrowser.clear()
+        # сортируем даты и выводим их
+        for key in sorted(self.dates_calendar.keys()):
+            self.textBrowser.append(f'{key} - {self.dates_calendar[key]}')
+
+        self.save_to_calendar(line_edit, string_date)
+
+    def save_to_calendar(self, line_edit, string_date):
+        con = sqlite3.connect('project_db.db')
+        cur = con.cursor()
+        cur.execute(f"INSERT INTO calendar (section, data, datetime) VALUES(3, ?, ?)",
+                    (line_edit, string_date)).fetchall()
+        con.commit()
+        con.close()
 
 
 def except_hook(cls, exception, traceback):

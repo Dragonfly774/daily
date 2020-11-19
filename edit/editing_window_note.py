@@ -10,6 +10,7 @@ class Edit(Ui_EditWindow, QMainWindow):
         self.setupUi(self)
         self.data_del = data_del
         self.pushButton.clicked.connect(self.run)
+        self.textEdit.setText(self.data_del)
 
     def run(self):
         """

@@ -1,7 +1,7 @@
 import sys
 
 from PyQt5.QtWidgets import QApplication, QPushButton, QMainWindow
-from test_maket import Ui_MainWindow
+from main_window import Ui_MainWindow
 
 
 class Example(QMainWindow, Ui_MainWindow):
@@ -36,8 +36,13 @@ class Example(QMainWindow, Ui_MainWindow):
             self.textBrowser.append(f'{key} - {self.all_dates[key]}')
 
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#     ex = Example()
+#     ex.show()
+#     sys.exit(app.exec_())
+
+def main():
+    global ex
     ex = Example()
     ex.show()
-    sys.exit(app.exec_())

@@ -14,7 +14,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.comboBox_choice.addItems([category[1], category[2], category[3], category[4], category[5]])
         self.pushButton_2.clicked.connect(self.save_psh)
-        self.comboBox_choice.activated.connect(self.combo_append)
 
     def save_psh(self):
         self.saving_notes_to_database()
