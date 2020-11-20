@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'edit_window.ui'
+# Form implementation generated from reading ui file 'design_window_calendar.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.1
 #
@@ -11,12 +11,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_EditWindow(object):
-    def setupUi(self, EditWindow):
-        EditWindow.setObjectName("EditWindow")
-        EditWindow.resize(278, 251)
-        EditWindow.setStyleSheet("background-color: #40E0D0")
-        self.centralwidget = QtWidgets.QWidget(EditWindow)
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(327, 276)
+        MainWindow.setStyleSheet("background-color: #40E0D0\n"
+"")
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
@@ -28,22 +29,24 @@ class Ui_EditWindow(object):
 "border: none;\n"
 "box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);\n"
 "width: 130px;\n"
-"height: 30px;")
+"height: 30px;\n"
+"")
         self.pushButton.setObjectName("pushButton")
         self.gridLayout.addWidget(self.pushButton, 0, 0, 1, 1)
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setStyleSheet("background-color: #ffffff")
+        self.textEdit.setStyleSheet("\n"
+"background-color: rgb(242, 242, 242);")
         self.textEdit.setObjectName("textEdit")
-        self.gridLayout.addWidget(self.textEdit, 1, 0, 1, 2)
-        EditWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(EditWindow)
+        self.gridLayout.addWidget(self.textEdit, 1, 0, 1, 1)
+        MainWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
-        EditWindow.setStatusBar(self.statusbar)
+        MainWindow.setStatusBar(self.statusbar)
 
-        self.retranslateUi(EditWindow)
-        QtCore.QMetaObject.connectSlotsByName(EditWindow)
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, EditWindow):
+    def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        EditWindow.setWindowTitle(_translate("EditWindow", "Редактирование"))
-        self.pushButton.setText(_translate("EditWindow", "сохранить"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "сохранение"))
+        self.pushButton.setText(_translate("MainWindow", "сохранить"))

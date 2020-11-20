@@ -1,22 +1,22 @@
 import sqlite3
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
-from edit.edit_window import Ui_EditWindow_E
+from edit.edit_window import Ui_EditWindow
 
 
-class Edit(Ui_EditWindow_E, QMainWindow):
+class Edit(Ui_EditWindow, QMainWindow):
     def __init__(self, data_del):
         super().__init__()
         self.setupUi(self)
         self.data_del = data_del
         self.pushButton.clicked.connect(self.run)
+        self.textEdit.setText(self.data_del)
 
     def run(self):
         """
         редактирование data в заметках
         """
         data = self.textEdit.toPlainText()
-        print(str(data))
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
         result = cur.execute("SELECT data FROM Data")
@@ -24,8 +24,6 @@ class Edit(Ui_EditWindow_E, QMainWindow):
         for i in result:
             data_edit.append(i)
         data_edit = list(map(lambda x: x[0], data_edit))
-        print(data_edit)
-        print(self.data_del)
         for i in range(len(data_edit)):
             if data_edit[i] == self.data_del:
                 con1 = sqlite3.connect('project_db.db')

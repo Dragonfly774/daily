@@ -3,12 +3,12 @@ import sys
 import sqlite3
 import datetime as dt
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from creat_window.design_window_creation import Ui_MainWindow_cr
+from design_window_creation import Ui_MainWindow
 
 category = {1: 'нет', 2: 'цели', 3: 'сегодня', 4: 'важное', 5: 'встреча'}
 
 
-class MyWidget(QMainWindow, Ui_MainWindow_cr):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
@@ -37,13 +37,13 @@ class MyWidget(QMainWindow, Ui_MainWindow_cr):
             con.close()
 
 
-# def main():
-#     global ex_2
-#     ex_2 = MyWidget()
-#     ex_2.show()
+def main():
+    global ex_2
+    ex_2 = MyWidget()
+    ex_2.show()
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = MyWidget()
-    ex.show()
-    sys.exit(app.exec_())
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#     ex = MyWidget()
+#     ex.show()
+#     sys.exit(app.exec_())

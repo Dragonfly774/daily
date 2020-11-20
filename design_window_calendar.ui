@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>EditWindow</class>
- <widget class="QMainWindow" name="EditWindow">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>278</width>
-    <height>251</height>
+    <width>327</width>
+    <height>276</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Редактирование</string>
+   <string>сохранение</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color: #40E0D0</string>
+   <string notr="true">background-color: #40E0D0
+</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -28,17 +29,19 @@ border-radius: 10px;
 border: none;
 box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);
 width: 130px;
-height: 30px;</string>
+height: 30px;
+</string>
       </property>
       <property name="text">
        <string>сохранить</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="2">
+    <item row="1" column="0">
      <widget class="QTextEdit" name="textEdit">
       <property name="styleSheet">
-       <string notr="true">background-color: #ffffff</string>
+       <string notr="true">
+background-color: rgb(242, 242, 242);</string>
       </property>
      </widget>
     </item>
