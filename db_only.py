@@ -36,29 +36,24 @@ def deleting_identical_calendar():
     """удаление повторых сохранненых заметок для календаря"""
     con = sqlite3.connect('project_db.db')
     cur = con.cursor()
-    r = cur.execute("SELECT section, data FROM calendar")
+    r = cur.execute("SELECT id, data, datetime FROM calendar")
     db = []
     for i in r:
         db.append(i)
-    del_count = []
+    db_id = []
+    db_data = []
+    db_datetime = []
+    for i in range(len(db)):
+        db_id.append(db[i][0])
+        db_data.append(db[i][1])
+        db_datetime.append(db[i][2])
+    print(db)
+    print(db_id)
+    print(db_data)
+    print(db_datetime)
     for i in range(len(db) - 1):
-        if db[i] == db[i + 1]:
-            del_count.append(1)
-        else:
-            del_count.append(0)
-    con_3 = sqlite3.connect('project_db.db')
-    cur_3 = con_3.cursor()
-    r_3 = cur.execute("SELECT id, datetime FROM calendar")
-    del_data_count = []
-    for i in r_3:
-        del_data_count.append(i)
-    del_data = []
-    for i in range(len(del_count)):
-        if del_count[i] == 1:
-            if del_data_count[i][0] < del_data_count[i + 1][0]:
-                del_data.append(del_data_count[i][0])
-    for i in range(len(del_data)):
-        cur_3.execute("DELETE FROM calendar WHERE id = ?", (del_data[i],))
+        if db_data[i + 1] == db[i][1]:
+            cur.execute("DELETE FROM calendar WHERE id = ?", (db_id[i],))
     con.commit()
     con.close()
 

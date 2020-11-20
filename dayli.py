@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import sqlite3
 import sys
+
 import creation_window
+import creation_window_calendar
 from edit import editing_window_note
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from main_window import Ui_MainWindow
-from db_only import deleting_identical_notes
-
+from db_only import deleting_identical_notes, deleting_identical_calendar
 
 category = [(1, 'нет'), (2, 'цели'), (3, 'сегодня'), (4, 'важное'), (5, 'встреча')]
 
@@ -15,6 +16,9 @@ class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+
+        """заметки"""
+
         self.crbt_notes.clicked.connect(self.open_second_form)
         self.deletebt_notes.clicked.connect(self.delete_data_listwidget)
         self.deletebt_notes.clicked.connect(self.deleting_identical_notes_call)
@@ -23,6 +27,17 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.refresh.clicked.connect(self.filling_data_listwidget)
         self.data_list = ''
         self.deleting_identical_notes_call()
+        self.all_dates = {}
+
+        """календарь"""
+
+        self.string_date = 0
+        self.pushButton.clicked.connect(self.creation_find_date)
+        self.pushButton_2.clicked.connect(self.filling_data_listwidget_calendar)
+        self.pushButton_3.clicked.connect(self.delete_data_listwidget_calendar)
+        self.pushButton_3.clicked.connect(self.filling_data_listwidget_calendar)
+        self.pushButton_3.clicked.connect(self.deleting_identical_calendar_call)
+        self.deleting_identical_calendar_call()
 
     @staticmethod
     def open_second_form():
@@ -45,7 +60,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.listWidget.clear()
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
-        db = cur.execute(f"SELECT data FROM Data").fetchall()
         db_category = cur.execute(f"SELECT data, category FROM Data").fetchall()
         data_category = []
         s = []
@@ -123,6 +137,80 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 con1 = sqlite3.connect('project_db.db')
                 cur1 = con1.cursor()
                 cur1.execute("DELETE FROM Data WHERE data = ?", (data_text_listwidget_del,))
+                con1.commit()
+                con1.close()
+
+    """-----------------------------Календарь-----------------------------"""
+
+    def creation_find_date(self):
+        """вызов функции из 'creation_window_calendar.py', которая создает заметки и сохраняет
+        эта функиция еще берет данные времени и передает их в "creation_window_calendar.py"
+        """
+        self.string_date = self.calendarWidget.selectedDate().getDate()
+
+        if int(self.string_date[1]) <= 9:
+            self.string_date = (self.string_date[0], '0' + str(self.string_date[1]), self.string_date[-1])
+
+        if int(self.string_date[2]) <= 9:
+            self.string_date = (self.string_date[0], str(self.string_date[1]), '0' + str(self.string_date[-1]))
+        creation_window_calendar.main(self.string_date)
+        self.deleting_identical_calendar_call()
+
+    def filling_data_listwidget_calendar(self):
+        """заполнение из бд в listWidget для календаря"""
+        deleting_identical_calendar()
+        self.listWidget_3.clear()
+        con = sqlite3.connect('project_db.db')
+        cur = con.cursor()
+        db_data = cur.execute(f"SELECT data FROM calendar").fetchall()
+        db_datetime = cur.execute(f"SELECT data, datetime FROM calendar").fetchall()
+        print(db_data)
+        print(db_datetime)
+        db_data_list = []
+        db_datetime_list = []
+        for i in db_data:
+            db_data_list.append(i)
+        for j in db_datetime:
+            db_datetime_list.append(j)
+        print(self.calendarWidget.selectedDate().getDate())
+        db_data_list = list(map(lambda x: x[0], db_data_list))
+        db_datetime_list = list(map(lambda x: x[1], db_datetime_list))
+        print(db_datetime_list)
+        print(db_data_list)
+        self.listWidget.clear()
+        for i in range(len(db_data_list)):
+            if self.calendarWidget.selectedDate().getDate() == eval(db_datetime_list[i]):
+                self.listWidget_3.addItem(db_data_list[i])
+
+        self.listWidget_3.itemDoubleClicked.connect(self.editing_a_calendar)
+
+        deleting_identical_calendar()
+
+    def editing_a_calendar(self):
+        """вызов окна редактирования в календаре"""
+        self.data_list = self.listWidget_3.currentItem().text()
+        editing_window_note.main_calendar(self.data_list)
+
+    @staticmethod
+    def deleting_identical_calendar_call():
+        """вызов функции из 'db_only.py', которая удалит одиннаковые замекти в календаре"""
+        deleting_identical_calendar()
+
+    def delete_data_listwidget_calendar(self):
+        """удаление выбранной заметки в календаре"""
+        con = sqlite3.connect('project_db.db')
+        cur = con.cursor()
+        result = cur.execute("SELECT data FROM calendar")
+        data = []
+        for i in result:
+            data.append(i)
+        data_text_listwidget_del = self.listWidget_3.currentItem().text()
+        data = list(map(lambda x: x[0], data))
+        for i in range(len(data)):
+            if data[i] == data_text_listwidget_del:
+                con1 = sqlite3.connect('project_db.db')
+                cur1 = con1.cursor()
+                cur1.execute("DELETE FROM calendar WHERE data = ?", (data_text_listwidget_del,))
                 con1.commit()
                 con1.close()
 
