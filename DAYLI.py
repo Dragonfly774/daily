@@ -28,6 +28,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.refresh.clicked.connect(self.deleting_identical_notes_call)
         self.deletebt_notes.clicked.connect(self.filling_data_listwidget)
         self.refresh.clicked.connect(self.filling_data_listwidget)
+        self.filling_data_listwidget()
         self.data_list = ''
         self.deleting_identical_notes_call()
         self.all_dates = {}
@@ -40,6 +41,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.pushButton_3.clicked.connect(self.delete_data_listwidget_calendar)
         self.pushButton_3.clicked.connect(self.filling_data_listwidget_calendar)
         self.pushButton_3.clicked.connect(self.deleting_identical_calendar_call)
+        self.filling_data_listwidget_calendar()
         self.deleting_identical_calendar_call()
 
     @staticmethod
@@ -180,10 +182,11 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         for i in range(len(db_data_list)):
             if self.calendarWidget.selectedDate().getDate() == eval(db_datetime_list[i]):
                 self.listWidget_3.addItem(db_data_list[i])
+
         test = [tuple(i.strip(")").strip("(").split(", ")) for i in db_datetime_list]
         for i in range(len(db_data_list)):
             format = QTextCharFormat()
-            format.setBackground(Qt.darkBlue)
+            format.setBackground(Qt.blue)
             self.calendarWidget.setDateTextFormat(QDate(int(test[i][0]), int(test[i][1]), int(test[i][2])), format)
 
         self.listWidget_3.itemDoubleClicked.connect(self.editing_a_calendar)
