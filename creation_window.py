@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-import sys
 import sqlite3
 import datetime as dt
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QMainWindow
 from design_window_creation import Ui_MainWindow
 
 category = {1: 'нет', 2: 'цели', 3: 'сегодня', 4: 'важное', 5: 'встреча'}

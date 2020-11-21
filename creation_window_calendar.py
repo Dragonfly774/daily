@@ -1,6 +1,5 @@
 import sqlite3
-import datetime as dt
-from PyQt5.QtWidgets import QApplication, QMainWindow
+from PyQt5.QtWidgets import QMainWindow
 from design_window_calendar import Ui_MainWindow
 
 
@@ -26,7 +25,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                         (info, str(self.string_date))).fetchall()
             con.commit()
             con.close()
-        print(self.string_date)
 
 
 def main(string_date):

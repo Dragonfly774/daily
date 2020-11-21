@@ -2,6 +2,9 @@
 import sqlite3
 import sys
 
+from PyQt5.QtCore import QDate, Qt
+from PyQt5.QtGui import QTextCharFormat
+
 import creation_window
 import creation_window_calendar
 from edit import editing_window_note
@@ -53,6 +56,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         """вызов окна редактирования"""
         self.data_list = self.listWidget.currentItem().text()
         editing_window_note.main(self.data_list)
+        self.filling_data_listwidget()
 
     def filling_data_listwidget(self):
         """заполнение из бд в listWidget
@@ -164,26 +168,25 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         cur = con.cursor()
         db_data = cur.execute(f"SELECT data FROM calendar").fetchall()
         db_datetime = cur.execute(f"SELECT data, datetime FROM calendar").fetchall()
-        print(db_data)
-        print(db_datetime)
         db_data_list = []
         db_datetime_list = []
         for i in db_data:
             db_data_list.append(i)
         for j in db_datetime:
             db_datetime_list.append(j)
-        print(self.calendarWidget.selectedDate().getDate())
         db_data_list = list(map(lambda x: x[0], db_data_list))
         db_datetime_list = list(map(lambda x: x[1], db_datetime_list))
-        print(db_datetime_list)
-        print(db_data_list)
         self.listWidget.clear()
         for i in range(len(db_data_list)):
             if self.calendarWidget.selectedDate().getDate() == eval(db_datetime_list[i]):
                 self.listWidget_3.addItem(db_data_list[i])
+        test = [tuple(i.strip(")").strip("(").split(", ")) for i in db_datetime_list]
+        for i in range(len(db_data_list)):
+            format = QTextCharFormat()
+            format.setBackground(Qt.darkBlue)
+            self.calendarWidget.setDateTextFormat(QDate(int(test[i][0]), int(test[i][1]), int(test[i][2])), format)
 
         self.listWidget_3.itemDoubleClicked.connect(self.editing_a_calendar)
-
         deleting_identical_calendar()
 
     def editing_a_calendar(self):
@@ -213,7 +216,6 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                 cur1.execute("DELETE FROM calendar WHERE data = ?", (data_text_listwidget_del,))
                 con1.commit()
                 con1.close()
-
 
 
 def except_hook(cls, exception, traceback):

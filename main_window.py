@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
+        MainWindow.setObjectName("DAYLI")
         MainWindow.resize(606, 389)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -66,60 +66,6 @@ class Ui_MainWindow(object):
         self.listWidget.setObjectName("listWidget")
         self.gridLayout_3.addWidget(self.listWidget, 1, 0, 1, 3)
         self.tabWidget.addTab(self.tab, "")
-        self.tab_2 = QtWidgets.QWidget()
-        self.tab_2.setObjectName("tab_2")
-        self.gridLayout_4 = QtWidgets.QGridLayout(self.tab_2)
-        self.gridLayout_4.setObjectName("gridLayout_4")
-        self.crbt_tasks = QtWidgets.QPushButton(self.tab_2)
-        self.crbt_tasks.setStyleSheet("color: #ff9218;\n"
-"background-color: #ffe5b6;\n"
-"text-align: center;\n"
-"border-radius: 6px;\n"
-"border: none;\n"
-"box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);\n"
-"width: 130px;\n"
-"height: 30px;")
-        self.crbt_tasks.setObjectName("crbt_tasks")
-        self.gridLayout_4.addWidget(self.crbt_tasks, 0, 0, 1, 1)
-        self.refresh_2 = QtWidgets.QPushButton(self.tab_2)
-        self.refresh_2.setStyleSheet("color: #ff9218;\n"
-"background-color: #ffe5b4;\n"
-"text-align: center;\n"
-"border-radius: 10px;\n"
-"border: none;\n"
-"box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);\n"
-"width: 130px;\n"
-"height: 30px;")
-        self.refresh_2.setObjectName("refresh_2")
-        self.gridLayout_4.addWidget(self.refresh_2, 0, 1, 1, 1)
-        self.deletebt_notes_2 = QtWidgets.QPushButton(self.tab_2)
-        self.deletebt_notes_2.setStyleSheet("color: #ff9218;\n"
-"background-color: #ffe5b4;\n"
-"text-align: center;\n"
-"border-radius: 10px;\n"
-"border: none;\n"
-"box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);\n"
-"width: 130px;\n"
-"height: 30px;\n"
-"")
-        self.deletebt_notes_2.setObjectName("deletebt_notes_2")
-        self.gridLayout_4.addWidget(self.deletebt_notes_2, 0, 2, 1, 1)
-        self.editi_2 = QtWidgets.QPushButton(self.tab_2)
-        self.editi_2.setStyleSheet("color: #ff9218;\n"
-"background-color: #ffe5b4;\n"
-"text-align: center;\n"
-"border-radius: 10px;\n"
-"border: none;\n"
-"box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);\n"
-"width: 130px;\n"
-"height: 30px;")
-        self.editi_2.setObjectName("editi_2")
-        self.gridLayout_4.addWidget(self.editi_2, 0, 3, 1, 1)
-        self.listWidget_2 = QtWidgets.QListWidget(self.tab_2)
-        self.listWidget_2.setStyleSheet("background-color: #fff2f2")
-        self.listWidget_2.setObjectName("listWidget_2")
-        self.gridLayout_4.addWidget(self.listWidget_2, 1, 0, 1, 4)
-        self.tabWidget.addTab(self.tab_2, "")
         self.tab_3 = QtWidgets.QWidget()
         self.tab_3.setObjectName("tab_3")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.tab_3)
@@ -182,17 +128,12 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.crbt_notes.setText(_translate("MainWindow", "+"))
-        self.refresh.setText(_translate("MainWindow", "обновить"))
-        self.deletebt_notes.setText(_translate("MainWindow", "удалить"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Заметки"))
-        self.crbt_tasks.setText(_translate("MainWindow", "+"))
-        self.refresh_2.setText(_translate("MainWindow", "обновить"))
-        self.deletebt_notes_2.setText(_translate("MainWindow", "удалить"))
-        self.editi_2.setText(_translate("MainWindow", "редактирование"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("MainWindow", "Задачи"))
-        self.pushButton_2.setText(_translate("MainWindow", "♲обновить♲"))
-        self.pushButton_3.setText(_translate("MainWindow", "удалить"))
-        self.pushButton.setText(_translate("MainWindow", "+"))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Календарь"))
+        MainWindow.setWindowTitle(_translate("DAYLI", "DAYLI"))
+        self.crbt_notes.setText(_translate("DAYLI", "+"))
+        self.refresh.setText(_translate("DAYLI", "обновить"))
+        self.deletebt_notes.setText(_translate("DAYLI", "удалить"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("DAYLI", "Заметки"))
+        self.pushButton_2.setText(_translate("DAYLI", "♲обновить♲"))
+        self.pushButton_3.setText(_translate("DAYLI", "удалить"))
+        self.pushButton.setText(_translate("DAYLI", "+"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("DAYLI", "Календарь"))

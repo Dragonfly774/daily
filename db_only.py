@@ -47,10 +47,6 @@ def deleting_identical_calendar():
         db_id.append(db[i][0])
         db_data.append(db[i][1])
         db_datetime.append(db[i][2])
-    print(db)
-    print(db_id)
-    print(db_data)
-    print(db_datetime)
     for i in range(len(db) - 1):
         if db_data[i + 1] == db[i][1]:
             cur.execute("DELETE FROM calendar WHERE id = ?", (db_id[i],))
