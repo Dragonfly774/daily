@@ -1,0 +1,2 @@
+https://github.com/Dragonfly774/daily.git
+gh repo clone Dragonfly774/daily
