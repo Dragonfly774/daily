@@ -3,7 +3,7 @@ import sqlite3
 import sys
 
 from PyQt5.QtCore import QDate, Qt
-from PyQt5.QtGui import QTextCharFormat
+from PyQt5.QtGui import QTextCharFormat, QColor
 
 import creation_window
 import creation_window_calendar
@@ -56,9 +56,12 @@ class MyWidget(QMainWindow, Ui_MainWindow):
 
     def editing_a_note(self):
         """вызов окна редактирования"""
-        self.data_list = self.listWidget.currentItem().text()
-        editing_window_note.main(self.data_list)
-        self.filling_data_listwidget()
+        try:
+            self.data_list = self.listWidget.currentItem().text()
+            editing_window_note.main(self.data_list)
+            self.filling_data_listwidget()
+        except AttributeError:
+            pass
 
     def filling_data_listwidget(self):
         """заполнение из бд в listWidget
@@ -136,15 +139,18 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         data = []
         for i in result:
             data.append(i)
-        data_text_listwidget_del = self.listWidget.currentItem().text()
-        data = list(map(lambda x: x[0], data))
-        for i in range(len(data)):
-            if data[i] == data_text_listwidget_del:
-                con1 = sqlite3.connect('project_db.db')
-                cur1 = con1.cursor()
-                cur1.execute("DELETE FROM Data WHERE data = ?", (data_text_listwidget_del,))
-                con1.commit()
-                con1.close()
+        try:
+            data_text_listwidget_del = self.listWidget.currentItem().text()
+            data = list(map(lambda x: x[0], data))
+            for i in range(len(data)):
+                if data[i] == data_text_listwidget_del:
+                    con1 = sqlite3.connect('project_db.db')
+                    cur1 = con1.cursor()
+                    cur1.execute("DELETE FROM Data WHERE data = ?", (data_text_listwidget_del,))
+                    con1.commit()
+                    con1.close()
+        except AttributeError:
+            pass
 
     """-----------------------------Календарь-----------------------------"""
 
@@ -182,11 +188,17 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         for i in range(len(db_data_list)):
             if self.calendarWidget.selectedDate().getDate() == eval(db_datetime_list[i]):
                 self.listWidget_3.addItem(db_data_list[i])
+        color = '#1faee9'
+        self.color_change(db_datetime_list, db_data_list, color)
+        self.listWidget_3.itemDoubleClicked.connect(self.editing_a_calendar)
+        deleting_identical_calendar()
 
+    def color_change(self, db_datetime_list, db_data_list, color):
         test = [tuple(i.strip(")").strip("(").split(", ")) for i in db_datetime_list]
         for i in range(len(db_data_list)):
             format = QTextCharFormat()
-            format.setBackground(Qt.blue)
+
+            format.setBackground(QColor(color))
             self.calendarWidget.setDateTextFormat(QDate(int(test[i][0]), int(test[i][1]), int(test[i][2])), format)
 
         self.listWidget_3.itemDoubleClicked.connect(self.editing_a_calendar)
@@ -207,18 +219,40 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         con = sqlite3.connect('project_db.db')
         cur = con.cursor()
         result = cur.execute("SELECT data FROM calendar")
+        # db_datetime = cur.execute(f"SELECT datetime FROM calendar").fetchone()
         data = []
         for i in result:
             data.append(i)
-        data_text_listwidget_del = self.listWidget_3.currentItem().text()
-        data = list(map(lambda x: x[0], data))
-        for i in range(len(data)):
-            if data[i] == data_text_listwidget_del:
-                con1 = sqlite3.connect('project_db.db')
-                cur1 = con1.cursor()
-                cur1.execute("DELETE FROM calendar WHERE data = ?", (data_text_listwidget_del,))
-                con1.commit()
-                con1.close()
+        try:
+            data_text_listwidget_del = self.listWidget_3.currentItem().text()
+            data = list(map(lambda x: x[0], data))
+            # data_1 = list(map(lambda x: x[0], data))
+            for i in range(len(data)):
+                if data[i] == data_text_listwidget_del:
+                    con1 = sqlite3.connect('project_db.db')
+                    cur1 = con1.cursor()
+                    cur1.execute("DELETE FROM calendar WHERE data = ?", (data_text_listwidget_del,))
+                    con1.commit()
+                    con1.close()
+
+        except AttributeError:
+            pass
+        # self.color_change_back(data_1, db_datetime)
+
+    # def color_change_back(self, data, db_datetime):
+    #     print(db_datetime)
+    #     db_datetime_list = []
+    #     for j in db_datetime:
+    #         db_datetime_list.append(j)
+    #     print(db_datetime_list)
+    #     db_datetime_list = list(map(lambda x: x, db_datetime_list))
+    #     print(db_datetime_list)
+    #     test = [tuple(i.strip(")").strip("(").split(", ")) for i in db_datetime_list]
+    #     print('test', test)
+    #     for i in range(len(data)):
+    #         format = QTextCharFormat()
+    #         format.setBackground(QColor('#40E0D1'))
+    #         self.calendarWidget.setDateTextFormat(QDate(int(test[i][0]), int(test[i][1]), int(test[i][2])), format)
 
 
 def except_hook(cls, exception, traceback):

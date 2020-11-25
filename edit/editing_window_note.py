@@ -31,6 +31,7 @@ class Edit(Ui_EditWindow, QMainWindow):
                 cur1.execute(f"UPDATE Data SET data = ? WHERE data = ?", (str(data), self.data_del))
                 con1.commit()
                 con1.close()
+                self.statusbar.showMessage('сохранено')
 
 
 class Edit_2(Ui_EditWindow, QMainWindow):
@@ -60,6 +61,7 @@ class Edit_2(Ui_EditWindow, QMainWindow):
                 cur1.execute(f"UPDATE calendar SET data = ? WHERE data = ?", (str(data), self.data_del))
                 con1.commit()
                 con1.close()
+                self.statusbar.showMessage('сохранено')
 
 
 def main(data_del):

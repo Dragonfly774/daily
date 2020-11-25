@@ -25,6 +25,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                         (info, str(self.string_date))).fetchall()
             con.commit()
             con.close()
+            self.statusbar.showMessage('сохранено')
 
 
 def main(string_date):

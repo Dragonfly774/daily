@@ -15,7 +15,9 @@ class MyWidget(QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.save_psh)
 
     def save_psh(self):
+
         self.saving_notes_to_database()
+
 
     def saving_notes_to_database(self):
         """сохранение заметки в базу данных"""
@@ -34,6 +36,7 @@ class MyWidget(QMainWindow, Ui_MainWindow):
                         (info, datetime, value_combobox)).fetchall()
             con.commit()
             con.close()
+            self.statusbar.showMessage('сохранено')
 
 
 def main():
